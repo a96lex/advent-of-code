@@ -9,14 +9,18 @@ const dayToString = (day: number): string => {
 const getInputData = async (day: number): Promise<string> => {
   const filename = `./inputs/${dayToString(day)}.txt`;
 
-  const stats = await Deno.lstat(filename);
-  if (stats.isFile) {
-    const text = await Deno.readTextFile(filename);
-    return text;
+  try {
+    const stats = await Deno.lstat(filename);
+    if (stats.isFile) {
+      const text = await Deno.readTextFile(filename);
+      return text;
+    }
+  } catch {
+    // file doesn't exist
   }
 
   const data = await fetch(
-    `https://adventofcode.com/${YEAR}/day/${dayToString(day)}/input`,
+    `https://adventofcode.com/${YEAR}/day/${day}/input`,
     {
       headers: {
         cookie: Deno.env.get("aoc_cookie") as string,
