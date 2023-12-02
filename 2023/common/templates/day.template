@@ -1,0 +1,8 @@
+import { getParsedData } from "../common/index.ts";
+
+const main = async (): Promise<number> => {
+  const data = await getParsedData(CURRENT_DAY);
+  return 0;
+};
+
+console.log(await main());
